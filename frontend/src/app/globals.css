@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --page-bg: #f4f5fb;
+    --surface: rgba(255, 255, 255, 0.55);
+    --surface-strong: rgba(255, 255, 255, 0.78);
+    --border: rgba(255, 255, 255, 0.6);
+    --border-strong: rgba(9, 9, 11, 0.08);
+    --text: #18181b;
+    --text-secondary: #52525b;
+    --text-muted: #87878f;
+    --accent: #7c3aed;
+    --accent-strong: #6d28d9;
+    --accent-soft: rgba(124, 58, 237, 0.12);
+    --glow: rgba(124, 58, 237, 0.35);
+  }
+
+  .dark {
+    --page-bg: #080c1a;
+    --surface: rgba(255, 255, 255, 0.05);
+    --surface-strong: rgba(255, 255, 255, 0.09);
+    --border: rgba(255, 255, 255, 0.12);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #66666f;
+    --accent: #8b5cf6;
+    --accent-strong: #a78bfa;
+    --accent-soft: rgba(139, 92, 246, 0.16);
+    --glow: rgba(139, 92, 246, 0.35);
+  }
+
+  html,
+  body {
+    background-color: var(--page-bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Soft ambient page gradient behind everything */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 50% at 15% 0%, var(--glow), transparent 60%),
+      radial-gradient(50% 45% at 90% 20%, rgba(56, 189, 248, 0.16), transparent 60%),
+      linear-gradient(180deg, var(--page-bg), var(--page-bg));
+  }
+}
+
+@layer components {
+  /* Frosted glass card */
+  .glass {
+    background: var(--surface);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid var(--border);
+    box-shadow:
+      0 8px 32px -12px rgba(2, 6, 23, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  /* Stronger frosted surface (hover / prominent panels) */
+  .glass-strong {
+    background: var(--surface-strong);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    backdrop-filter: blur(24px) saturate(170%);
+    border: 1px solid var(--border-strong);
+    box-shadow:
+      0 12px 40px -14px rgba(2, 6, 23, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* Subtle inset separator used inside glass panels */
+  .hairline {
+    border-bottom: 1px solid var(--border-strong);
+  }
+}
+
+/* Glass scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}

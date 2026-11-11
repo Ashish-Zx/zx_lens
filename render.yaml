@@ -1,0 +1,23 @@
+# Render Blueprint — one-click deploy of the Zx Lens FastAPI backend.
+# Usage: connect this repo to Render, then "New -> Blueprint" and choose this file.
+services:
+  - type: web
+    name: zx-lens-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: LLM_PROVIDER
+        value: inception
+      - key: INCEPTION_BASE_URL
+        value: https://api.inceptionlabs.ai/v1
+      - key: INCEPTION_MODEL
+        value: mercury-3
+      # Fill in your API key at creation time (sync: false => prompts for a secret)
+      - key: INCEPTION_API_KEY
+        sync: false
